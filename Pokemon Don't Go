@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Pokemon_Don_t_Go
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> pokemonField = Console.ReadLine()
+                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            long endSum = 0;
+
+            int initialLength = pokemonField.Count;
+
+            while (pokemonField.Count > 0)
+            {
+                int position = int.Parse(Console.ReadLine());
+                                                          
+                if (position < 0)
+                {
+                    int value = pokemonField[0];
+
+                    pokemonField[0] = pokemonField[pokemonField.Count - 1];
+                    
+                    endSum += value;
+                                        
+                    for (int i = 0; i < pokemonField.Count; i++)
+                    {
+
+
+                        if (pokemonField[i] <= value)
+                        {
+                            pokemonField[i] += value;
+                            
+                        }
+                        else if (pokemonField[i] > value)
+                        {
+                            pokemonField[i] -= value;
+
+                        }
+
+                    }
+                }
+
+                else if (position >= pokemonField.Count)
+                {
+                    int value = pokemonField[pokemonField.Count - 1];
+
+                    pokemonField[pokemonField.Count - 1] = pokemonField[0];
+                    
+                    endSum += value;
+
+                    
+                    for (int i = 0; i < pokemonField.Count; i++)
+                    {
+
+
+                        if (pokemonField[i] <= value)
+                        {
+                            pokemonField[i] += value;
+
+                        }
+                        else if (pokemonField[i] > value)
+                        {
+                            pokemonField[i] -= value;
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    int removedValue = pokemonField[position];
+
+                    pokemonField.RemoveAt(position);
+
+                    endSum += removedValue;
+
+                    for (int i = 0; i < pokemonField.Count; i++)
+                    {
+
+
+                        if (pokemonField[i] <= removedValue)
+                        {
+                            pokemonField[i] += removedValue;
+
+                        }
+                        else if (pokemonField[i] > removedValue)
+                        {
+                            pokemonField[i] -= removedValue;
+
+                        }
+                    }
+                }              
+            }
+            Console.WriteLine(endSum);
+
+        }
+    }
+}
